@@ -49,6 +49,7 @@ docker --version
 kind version
 kubectl version --client
 helm version
+```
 
 🚀 Step 1: Create KIND Cluster
 kind create cluster --name monitoring-cluster --config kind-config.yaml
@@ -96,4 +97,4 @@ Recommended Dashboard IDs:
 6417 → Kubernetes Pod Metrics
 
 1860 → Node Exporter Full
-```
+
