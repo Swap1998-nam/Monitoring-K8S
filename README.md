@@ -52,19 +52,21 @@ helm version
 ```
 
 🚀 Step 1: Create KIND Cluster
+```bash
 kind create cluster --name monitoring-cluster --config kind-config.yaml
-
+```
 Verify:
+```bash
 kubectl get nodes
-
+```
 📦 Step 2: Add Helm Repositories
-
+```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
-
-step 3: install
-
+```
+**step 3: install**
+```bash
 helm install prometheus-stack prometheus-community/kube-prometheus-stack \
   -n monitoring \
   --create-namespace \
@@ -72,25 +74,27 @@ helm install prometheus-stack prometheus-community/kube-prometheus-stack \
   --set prometheus.service.nodePort=30000 \
   --set grafana.service.type=NodePort \
   --set grafana.service.nodePort=31000
-
-verify:
+```
+**verify:**
+```bash
 kubectl get svc -n monitoring
-
-Step4 Expose the ports:
+```
+**Step4 Expose the ports:**
+```bash
 kubectl port-forward svc/prometheus-stack-kube-prom-prometheus 9090:9090 -n monitorning --address=0.0.0.0 &
 kubectl port-forward svc/prometheus-stack-grafana 3000:80 -n monitorning --address=0.0.0.0 &
+```
 
 
-
-🔐 Step 5: Get Grafana Admin Password
-
+**🔐 Step 5: Get Grafana Admin Password**
+```bash
 kubectl get secret grafana -n monitoring \
 -o jsonpath="{.data.admin-password}" | base64 --decode
+```
 
+**Import Dashboards**
 
-Import Dashboards
-
-Recommended Dashboard IDs:
+**Recommended Dashboard IDs:**
 
 3119 → Kubernetes Cluster Monitoring
 
